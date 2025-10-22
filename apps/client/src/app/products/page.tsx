@@ -6,9 +6,13 @@ import React from "react";
 const ProductsPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ category: string; sort: string; search: string }>;
+  searchParams: {
+    category?: string;
+    sort?: string;
+    search?: string;
+  };
 }) => {
-  const category = (await searchParams).category;
+  const category = (await searchParams).category || "all";
   const sort = (await searchParams).sort;
   const search = (await searchParams).search;
   return (
