@@ -2,6 +2,10 @@ import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
+interface ProductPageProps {
+  params: { id: string };
+  searchParams: { color?: string; size?: string };
+}
 
 const fetchdata = async (id: string): Promise<ProductType> => {
   const res = await fetch(
@@ -28,13 +32,7 @@ export const generateMetadata = async ({
   };
 };
 
-const ProductPage = async ({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: { color?: string; size?: string };
-}) => {
+const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const { id } = params;
   const { color, size } = searchParams;
 
