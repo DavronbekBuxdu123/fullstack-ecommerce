@@ -16,17 +16,15 @@ import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 export type PayloadType = {
-  userId: string | null;
   email: string;
   amount: number;
   status: string;
-  products: [
-    {
-      name: string;
-      quantity: number;
-      price: number;
-    },
-  ];
+  products: {
+    name: string;
+    quantity: number;
+    price: number;
+  }[];
+
   shipping: {
     name: string;
     phone: string;
@@ -34,7 +32,7 @@ export type PayloadType = {
     city: string;
   };
 };
-function ShippingForm() {
+function ShippingForm({}) {
   const { clearCart } = useCartStore();
   const [cart, setCart] = useState<ProductsType>([]);
   const increase = useOrderStore((s) => s.increase);

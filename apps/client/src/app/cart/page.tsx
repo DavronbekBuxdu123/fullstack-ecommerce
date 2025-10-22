@@ -2,7 +2,7 @@
 
 import ShippingForm from "@/components/ShippingForm";
 import useCartStore from "@/store/CartStore";
-import { CartItemsType, ShippingFormInputs } from "@/types";
+import { ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -22,11 +22,10 @@ const steps = [
   },
 ];
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 
 function CartPage() {
-  const [shippingform, setShippingForm] = useState<ShippingFormInputs>();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -125,7 +124,7 @@ function CartPage() {
               </div>
             </div>
           ) : activeStep === "2" ? (
-            <ShippingForm setShippingForm={setShippingForm} />
+            <ShippingForm />
           ) : (
             ""
           )}
