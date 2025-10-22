@@ -32,15 +32,24 @@ function ShippingForm() {
   const increase = useOrderStore((s) => s.increase);
   const router = useRouter();
   useEffect(() => {
-    try {
-      const productData = localStorage.getItem("cart");
-      const parsed = JSON.parse(productData!).state.cart;
-      setCart(parsed);
-    } catch (error) {
-      setCart([]);
-      console.log(error);
-    }
-  }, []);
+    const fetchCart = () => {
+      try {
+        const productData = localStorage.getItem("cart");
+        if (!productData) {
+          setCart([]);
+          return;
+        }
+        const parsed = JSON.parse(productData).state.cart;
+        setCart(parsed);
+      } catch (error) {
+        setCart([]);
+        console.log(error);
+      }
+    };
+
+    fetchCart();
+  }, [setCart]);
+
   const {
     register,
     reset,

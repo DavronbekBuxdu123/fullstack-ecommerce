@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductsType, ProductType } from "@/types";
+import { ProductType } from "@/types";
 import ProductCard from "./ProductCard";
 
 import Link from "next/link";
