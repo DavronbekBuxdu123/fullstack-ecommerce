@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { AppBarChat } from "../components__/AppBarChat";
 import { AppAreaChart } from "../components__/AreaChart";
 import { AppPieChart } from "../components__/AppPieChart";

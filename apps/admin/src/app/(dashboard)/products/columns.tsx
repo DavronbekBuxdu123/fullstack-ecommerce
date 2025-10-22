@@ -10,23 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { ProductsType, ProductType } from "@/types";
+
+import {  ProductType } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// export type Product = {
-//   id: string | number;
-//   price: number;
-//   name: string;
-//   shortDescription: string;
-//   description: string;
-//   sizes: string[];
-//   colors: string[];
-//   images: Record<string, string>;
-// };
+
 
 export const columns: ColumnDef<ProductType>[] = [
   {
@@ -143,16 +134,4 @@ export const columns: ColumnDef<ProductType>[] = [
   },
 ];
 
-// const getData = async (): Promise<Product[]> => {
-//   try {
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`
-//     );
-//     const data = res.json();
-//     console.log(data);
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+

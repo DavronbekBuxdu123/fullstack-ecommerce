@@ -5,7 +5,6 @@ import {
   Inbox,
   LogOut,
   Plus,
-  Projector,
   Search,
   Settings,
   Shirt,
@@ -27,9 +26,6 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
@@ -37,25 +33,16 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import EditUser from "./EditUser";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import AddOrder from "./AddOrder";
 import AddUser from "./AddUser";
 import AddCategory from "./AddCategory";
 import AddProduct from "./AddProduct";
 
-// Menu items.
 const items = [
   {
     title: "Home",

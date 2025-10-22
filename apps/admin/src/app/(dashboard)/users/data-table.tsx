@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/table";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 import { Trash2 } from "lucide-react";
 import { DataTablePagination } from "@/app/components__/TablePagination";

@@ -1,14 +1,12 @@
 "use client";
 import React from "react";
 import {
-  Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { email, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -25,7 +23,6 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";

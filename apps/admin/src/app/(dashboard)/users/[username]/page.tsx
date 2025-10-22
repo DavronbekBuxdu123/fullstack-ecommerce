@@ -1,6 +1,5 @@
 "use client";
-import CardList from "@/app/components__/CardList";
-import { Badge } from "@/components/ui/badge";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,14 +16,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { BadgeCheck, Candy, Citrus, Shield } from "lucide-react";
 import React from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import EditUser from "@/app/components__/EditUser";
 import { AppLineChart } from "@/app/components__/AppLineChart";

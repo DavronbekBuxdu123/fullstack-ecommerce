@@ -1,14 +1,12 @@
 "use client";
 import React from "react";
 import {
-  Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { email, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,13 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   fullname: z.string().min(2, { message: "Username is invalid" }).max(50),
