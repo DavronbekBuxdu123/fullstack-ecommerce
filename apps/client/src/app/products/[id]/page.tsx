@@ -27,8 +27,8 @@ const ProductPage = async ({
   params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ color: string; size: string }>;
+  params: { id: string };
+  searchParams: { color?: string; size?: string };
 }) => {
   const { size, color } = await searchParams;
   const { id } = await params;
