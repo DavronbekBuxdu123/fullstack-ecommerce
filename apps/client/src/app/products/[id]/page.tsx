@@ -19,7 +19,7 @@ export const generateMetadata = async ({
   const product = await fetchdata(id);
   return {
     title: product.name,
-    describe: product.description,
+    description: product.description,
   };
 };
 
@@ -30,8 +30,8 @@ const ProductPage = async ({
   params: { id: string };
   searchParams: { color?: string; size?: string };
 }) => {
-  const { size, color } = await searchParams;
-  const { id } = await params;
+  const { id } = params;
+  const { color, size } = searchParams;
   const product = await fetchdata(id);
   const selectedSize = size || (product.sizes[0] as string);
   const selectedColor = color || (product.colors[0] as string);

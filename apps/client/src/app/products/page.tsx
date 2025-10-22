@@ -12,9 +12,9 @@ const ProductsPage = async ({
     search?: string;
   };
 }) => {
-  const category = (await searchParams).category || "all";
-  const sort = (await searchParams).sort;
-  const search = (await searchParams).search;
+  const category = searchParams.category || "all";
+  const sort = searchParams.sort;
+  const search = searchParams.search;
   return (
     <div className="w-full mt-8">
       <div>
