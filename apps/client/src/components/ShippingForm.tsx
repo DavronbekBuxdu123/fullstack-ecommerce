@@ -19,7 +19,6 @@ export type PayloadType = {
     quantity: number;
     price: number;
   }[];
-
   shipping: {
     name: string;
     phone: string;
@@ -27,7 +26,7 @@ export type PayloadType = {
     city: string;
   };
 };
-function ShippingForm({}) {
+function ShippingForm() {
   const { clearCart } = useCartStore();
   const [cart, setCart] = useState<ProductsType>([]);
   const increase = useOrderStore((s) => s.increase);
@@ -86,7 +85,7 @@ function ShippingForm({}) {
           city: data.city,
         },
       };
-      const res = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_ORDER_SERVICE_URL}/orders`,
         payload,
         {
