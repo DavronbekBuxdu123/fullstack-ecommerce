@@ -1,12 +1,5 @@
 "use client";
-import {
-  Bell,
-  Home,
-  ListOrdered,
-  Search,
-  ShoppingBag,
-  ShoppingCart,
-} from "lucide-react";
+import { Home, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

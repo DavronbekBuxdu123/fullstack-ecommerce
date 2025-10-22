@@ -9,7 +9,6 @@ import {
   Venus,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Filter from "./Filter";
 
 const categories = [
   {

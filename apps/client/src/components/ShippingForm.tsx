@@ -1,13 +1,8 @@
 "use client";
 import useCartStore from "@/store/CartStore";
 import { useOrderStore } from "@/store/OrderStore";
-import {
-  ProductsType,
-  ProductType,
-  ShippingFormInputs,
-  shippingFormSchema,
-} from "@/types";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { ProductsType, ShippingFormInputs, shippingFormSchema } from "@/types";
+import { useAuth } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { ArrowRight } from "lucide-react";
@@ -55,7 +50,7 @@ function ShippingForm({}) {
   } = useForm<ShippingFormInputs>({
     resolver: zodResolver(shippingFormSchema),
   });
-  const { user } = useUser();
+
   const { getToken } = useAuth();
 
   const handleShippingForm: SubmitHandler<ShippingFormInputs> = async (

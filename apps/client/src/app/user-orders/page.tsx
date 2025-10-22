@@ -29,7 +29,6 @@ function OrdersPage() {
   const { getToken } = useAuth();
   const [orders, setOrders] = useState<OrdersType[]>();
   const setOrderCount = useOrderStore((s) => s.setOrderCount);
-  console.log(orders);
   useEffect(() => {
     const fetchOrders = async () => {
       try {

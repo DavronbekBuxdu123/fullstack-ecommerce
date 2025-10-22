@@ -45,6 +45,7 @@ const ProductInteraction = ({
         <div className="flex items-center gap-4  text-xs ">
           {product.sizes.map((size) => (
             <div
+              key={size}
               onClick={() => handleTypeChange("size", size)}
               className={`border rounded-sm ${
                 selectedSize === size ? "border-gray-900" : "border-gray-300"
@@ -66,6 +67,7 @@ const ProductInteraction = ({
         <div className="flex items-center gap-4  text-xs">
           {product.colors.map((color) => (
             <div
+              key={color}
               onClick={() => handleTypeChange("color", color)}
               className={`border rounded-sm ${
                 selectedColor === color ? "border-gray-900" : "border-gray-300"
