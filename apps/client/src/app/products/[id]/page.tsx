@@ -2,42 +2,37 @@ import Image from "next/image";
 import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import React from "react";
-import { ResolvingMetadata } from "next";
 
 type ProductPageProps = {
-  params: Promise<{ id: string }>;
-  searchParams?: Record<string, string | string[] | undefined>;
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 const fetchData = async (id: string): Promise<ProductType> => {
   const baseUrl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL;
-  if (!baseUrl) throw new Error("Missing NEXT_PUBLIC_PRODUCT_SERVICE_URL");
+  if (!baseUrl) throw new Error(" Missing NEXT_PUBLIC_PRODUCT_SERVICE_URL");
 
   const res = await fetch(`${baseUrl}/products/${id}`, {
     cache: "no-store",
   });
 
   if (!res.ok) {
-    throw new Error(`Product not found: ${id}`);
+    throw new Error(` Product not found: ${id}`);
   }
 
   return res.json();
 };
 
-export const generateMetadata = async (
-  { params }: { params: Promise<{ id: string }> },
-  _parent?: ResolvingMetadata
-) => {
-  const { id } = await params;
-  const product = await fetchData(id);
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const product = await fetchData(params.id);
   return {
     title: product.name,
     description: product.description,
   };
-};
+}
 
 const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
-  const { id } = await params;
+  const { id } = params;
   const product = await fetchData(id);
 
   const colorParam = searchParams?.color;
@@ -55,6 +50,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
 
   return (
     <div className="w-full flex flex-col lg:flex-row mt-12 gap-12">
+      {/* LEFT IMAGE */}
       <div className="w-full lg:w-5/12 relative aspect-[2/3]">
         {product.images?.[selectedColor] && (
           <Image
@@ -65,6 +61,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
           />
         )}
       </div>
+
       <div className="w-full lg:w-7/12 flex flex-col gap-4">
         <h1 className="text-xl font-medium">{product.name}</h1>
         <p className="text-gray-500">{product.description}</p>
@@ -77,9 +74,27 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
         />
 
         <div className="flex items-center gap-2 mt-4">
-          <Image src="/klarna.png" alt="klarna" width={50} height={25} />
-          <Image src="/cards.png" alt="cards" width={50} height={25} />
-          <Image src="/stripe.png" alt="stripe" width={50} height={25} />
+          <Image
+            src="/klarna.png"
+            alt="klarna"
+            width={50}
+            height={25}
+            className="rounded-md"
+          />
+          <Image
+            src="/cards.png"
+            alt="cards"
+            width={50}
+            height={25}
+            className="rounded-md"
+          />
+          <Image
+            src="/stripe.png"
+            alt="stripe"
+            width={50}
+            height={25}
+            className="rounded-md"
+          />
         </div>
 
         <p className="text-gray-500 text-xs mt-2">
