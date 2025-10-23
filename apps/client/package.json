@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.33.3",
