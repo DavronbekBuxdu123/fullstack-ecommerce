@@ -10,14 +10,14 @@ interface ProductPageProps {
 
 const fetchData = async (id: string): Promise<ProductType> => {
   const baseUrl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL;
-  if (!baseUrl) throw new Error("❌ Missing NEXT_PUBLIC_PRODUCT_SERVICE_URL");
+  if (!baseUrl) throw new Error(" Missing NEXT_PUBLIC_PRODUCT_SERVICE_URL");
 
   const res = await fetch(`${baseUrl}/products/${id}`, {
     cache: "no-store",
   });
 
   if (!res.ok) {
-    throw new Error(`❌ Product not found: ${id}`);
+    throw new Error(` Product not found: ${id}`);
   }
 
   return res.json();
