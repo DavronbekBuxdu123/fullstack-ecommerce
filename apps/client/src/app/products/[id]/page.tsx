@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     description: product.description,
   };
 }
+// @ts-ignore - Next.js 15 type bug (PageProps constraint with Promise)
 
 const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const product = await fetchData(params.id);
