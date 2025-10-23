@@ -1,48 +1,44 @@
-import Image from "next/image";
 import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
+import Image from "next/image";
+import React from "react";
 
-export const dynamic = "force-dynamic";
-
-interface ProductPageProps {
+type PagePropsFixed = {
   params: { id: string };
   searchParams?: Record<string, string | string[] | undefined>;
-}
+};
 
-const fetchData = async (id: string): Promise<ProductType> => {
-  const baseUrl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL;
-  if (!baseUrl) throw new Error("Missing NEXT_PUBLIC_PRODUCT_SERVICE_URL");
+const fetchdata = async (id: string): Promise<ProductType> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`
+  );
 
-  const res = await fetch(`${baseUrl}/products/${id}`, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Product not found: ${id}`);
+  if (!res.ok) {
+    throw new Error("Product not found");
+  }
 
   return res.json();
 };
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const product = await fetchData(params.id);
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const product = await fetchdata(params.id);
   return {
     title: product.name,
     description: product.description,
   };
-}
-// @ts-ignore - Next.js 15 type bug (PageProps constraint with Promise)
+};
 
-const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
-  const product = await fetchData(params.id);
+const ProductPage = async ({ params, searchParams }: any) => {
+  const { id } = params;
+  const { color, size } = searchParams ?? {};
 
-  const colorParam = searchParams?.color;
-  const sizeParam = searchParams?.size;
-
-  const selectedColor =
-    (Array.isArray(colorParam) ? colorParam[0] : colorParam) ||
-    product.colors?.[0] ||
-    "Default Color";
-
-  const selectedSize =
-    (Array.isArray(sizeParam) ? sizeParam[0] : sizeParam) ||
-    product.sizes?.[0] ||
-    "Default Size";
+  const product = await fetchdata(id);
+  const selectedSize = size || product.sizes?.[0] || "Default Size";
+  const selectedColor = color || product.colors?.[0] || "Default Color";
 
   return (
     <div className="w-full flex flex-col lg:flex-row mt-12 gap-12">
@@ -50,12 +46,13 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
         {product.images?.[selectedColor] && (
           <Image
             alt={product.name}
+            className="object-contain rounded-md"
             src={product.images[selectedColor]}
             fill
-            className="object-contain rounded-md"
           />
         )}
       </div>
+
       <div className="w-full lg:w-7/12 flex flex-col gap-4">
         <h1 className="text-xl font-medium">{product.name}</h1>
         <p className="text-gray-500">{product.description}</p>
