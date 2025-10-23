@@ -2,12 +2,6 @@ import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
 import type { Metadata } from "next";
-import React from "react";
-
-interface ProductPageProps {
-  params: { id: string };
-  searchParams: Record<string, string | string[] | undefined>;
-}
 
 const fetchdata = async (id: string): Promise<ProductType> => {
   const res = await fetch(
@@ -15,7 +9,9 @@ const fetchdata = async (id: string): Promise<ProductType> => {
     { cache: "no-store" }
   );
 
-  if (!res.ok) throw new Error("Product not found");
+  if (!res.ok) {
+    throw new Error("Product not found");
+  }
 
   return res.json();
 };
@@ -35,15 +31,18 @@ export const generateMetadata = async ({
 export default async function ProductPage({
   params,
   searchParams,
-}: ProductPageProps) {
+}: {
+  params: { id: string };
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const { id } = params;
 
-  const colorParam = Array.isArray(searchParams.color)
-    ? searchParams.color[0]
-    : searchParams.color;
-  const sizeParam = Array.isArray(searchParams.size)
-    ? searchParams.size[0]
-    : searchParams.size;
+  const colorParam = Array.isArray(searchParams?.color)
+    ? searchParams?.color[0]
+    : searchParams?.color;
+  const sizeParam = Array.isArray(searchParams?.size)
+    ? searchParams?.size[0]
+    : searchParams?.size;
 
   const product = await fetchdata(id);
 
