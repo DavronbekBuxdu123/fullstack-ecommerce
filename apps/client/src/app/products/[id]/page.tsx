@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 interface ProductPageProps {
   params: { id: string };
-  searchParams: { color?: string; size?: string };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 const fetchdata = async (id: string): Promise<ProductType> => {
@@ -13,7 +13,7 @@ const fetchdata = async (id: string): Promise<ProductType> => {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch product");
+    throw new Error("Prodoct not");
   }
 
   const data: ProductType = await res.json();
