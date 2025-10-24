@@ -1,11 +1,7 @@
 "use client";
 
-
-const ProductInteraction = ({ product }: { product: ProductType }) => {
-
-  return (
-    
-  );
+const ProductInteraction = () => {
+  return <div>ProductInteraction</div>;
 };
 
 export default ProductInteraction;
