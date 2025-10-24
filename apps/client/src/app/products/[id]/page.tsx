@@ -1,60 +1,36 @@
 import ProductInteraction from "@/components/ProductInteraction";
-import { ProductType } from "@/types";
+
 import Image from "next/image";
 import React from "react";
 
-type Params = { id: string };
-type SearchParams = Record<string, string | string[] | undefined>;
-
-const fetchData = async (id: string): Promise<ProductType> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    throw new Error("Product not found");
-  }
-
-  return res.json();
-};
-
-export default async function ProductPage({
-  params,
-  searchParams,
-}: {
-  params: Params | Promise<Params>;
-  searchParams: SearchParams | Promise<SearchParams>;
-}) {
+export default async function ProductPage({ params }) {
   const { id } = await params;
-  const query = await searchParams;
 
+  const fetchData = async (id: string) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+      throw new Error("Product not found");
+    }
+
+    return res.json();
+  };
   const product = await fetchData(id);
-
-  const colorParam = query.color;
-  const sizeParam = query.size;
-
-  const selectedColor =
-    (Array.isArray(colorParam) ? colorParam[0] : colorParam) ||
-    product.colors?.[0] ||
-    "Default Color";
-
-  const selectedSize =
-    (Array.isArray(sizeParam) ? sizeParam[0] : sizeParam) ||
-    product.sizes?.[0] ||
-    "Default Size";
 
   return (
     <div className="w-full flex flex-col lg:flex-row mt-12 gap-12">
       <div className="w-full lg:w-5/12 relative aspect-[2/3]">
-        {product.images?.[selectedColor] && (
+        {/* {product.images?.[selectedColor] && (
           <Image
             alt={product.name}
             className="object-contain rounded-md"
             src={product.images[selectedColor]}
             fill
           />
-        )}
+        )} */}
       </div>
 
       <div className="w-full lg:w-7/12 flex flex-col gap-4">
@@ -62,11 +38,7 @@ export default async function ProductPage({
         <p className="text-gray-500">{product.description}</p>
         <h2 className="text-2xl font-semibold">${product.price.toFixed(2)}</h2>
 
-        <ProductInteraction
-          product={product}
-          selectedSize={selectedSize}
-          selectedColor={selectedColor}
-        />
+        <ProductInteraction product={product} />
 
         <div className="flex items-center gap-2 mt-4">
           <Image

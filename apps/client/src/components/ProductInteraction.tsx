@@ -6,18 +6,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const ProductInteraction = ({
-  product,
-  selectedColor,
-  selectedSize,
-}: {
-  product: ProductType;
-  selectedColor: string;
-  selectedSize: string;
-}) => {
+const ProductInteraction = ({ product }: { product: ProductType }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
   const handleTypeChange = (type: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(type, value);
@@ -35,8 +29,16 @@ const ProductInteraction = ({
     }
   };
   const handleAddToCart = () => {
+    if (!selectedColor) {
+      toast.warn("Iltimos kerakli maxsulot rangini tanlang!");
+      return;
+    }
+    if (!selectedSize) {
+      toast.warn("Iltimos kerakli maxsulot o'lchamini tanlang!");
+      return;
+    }
     addToCart({ ...product, quantity, selectedColor, selectedSize });
-    toast.success("Product added to cart");
+    toast.success("Maxsulot savatga qo'shildi!");
   };
   return (
     <div className="flex flex-col gap-4 ">
@@ -46,7 +48,10 @@ const ProductInteraction = ({
           {product.sizes.map((size) => (
             <div
               key={size}
-              onClick={() => handleTypeChange("size", size)}
+              onClick={() => {
+                handleTypeChange("size", size);
+                setSelectedSize(size);
+              }}
               className={`border rounded-sm ${
                 selectedSize === size ? "border-gray-900" : "border-gray-300"
               }   cursor-pointer w-[30px] h-[30px] flex items-center justify-center `}
@@ -68,7 +73,10 @@ const ProductInteraction = ({
           {product.colors.map((color) => (
             <div
               key={color}
-              onClick={() => handleTypeChange("color", color)}
+              onClick={() => {
+                handleTypeChange("color", color);
+                setSelectedColor(color);
+              }}
               className={`border rounded-sm ${
                 selectedColor === color ? "border-gray-900" : "border-gray-300"
               }   cursor-pointer w-[30px] h-[30px] flex items-center justify-center `}
