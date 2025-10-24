@@ -19,7 +19,7 @@ const fetchdata = async (id: string) => {
   return data;
 };
 
-export async function ProductPage(props: {
+export default async function ProductPage(props: {
   params: Params;
   searchParams: SearchParams;
 }) {
