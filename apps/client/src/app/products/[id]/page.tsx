@@ -23,10 +23,10 @@ export default async function ProductPage({
   params,
   searchParams,
 }: {
-  params: Promise<Params>;
+  params: Params;
   searchParams: Promise<SearchParams>;
 }) {
-  const { id } = await params;
+  const { id } = params;
   const query = await searchParams;
 
   const product = await fetchData(id);
