@@ -3,9 +3,6 @@ import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-type Params = { id: string };
-type SearchParams = Record<string, string | string[] | undefined>;
-
 const fetchData = async (id: string): Promise<ProductType> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`,
@@ -19,15 +16,9 @@ const fetchData = async (id: string): Promise<ProductType> => {
   return res.json();
 };
 
-export default async function ProductPage({
-  params,
-  searchParams,
-}: {
-  params: Params;
-  searchParams: Promise<SearchParams>;
-}) {
+export default async function ProductPage({ params, searchParams }: any) {
   const { id } = params;
-  const query = await searchParams;
+  const query = searchParams;
 
   const product = await fetchData(id);
 
