@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { ProductType } from "@/types";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -13,7 +14,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const searchParams = useSearchParams();
   const { addToCart } = useCartStore();
 
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<ProductType>();
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -55,7 +56,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       toast.warn("Iltimos kerakli maxsulot o'lchamini tanlang!");
       return;
     }
-    addToCart({ ...product, quantity, selectedColor, selectedSize });
+    addToCart({ ...product!, quantity, selectedColor, selectedSize });
     toast.success("Maxsulot savatga qo'shildi!");
   };
 
