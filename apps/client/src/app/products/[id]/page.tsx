@@ -3,10 +3,8 @@ import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-interface ProductPageProps {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
+type Params = { id: string };
+type SearchParams = Record<string, string | string[] | undefined>;
 
 const fetchData = async (id: string): Promise<ProductType> => {
   const res = await fetch(
@@ -21,15 +19,21 @@ const fetchData = async (id: string): Promise<ProductType> => {
   return res.json();
 };
 
-const ProductPage = async ({ params, searchParams = {} }: ProductPageProps) => {
-  const { id } = params;
+export default async function ProductPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const { id } = await params;
+  const query = await searchParams;
+
   const product = await fetchData(id);
 
-  // Parametrlardan qiymatlarni olish
-  const colorParam = searchParams.color;
-  const sizeParam = searchParams.size;
+  const colorParam = query.color;
+  const sizeParam = query.size;
 
-  // Agar qiymat massiv bo‘lsa, faqat birinchisini olamiz
   const selectedColor =
     (Array.isArray(colorParam) ? colorParam[0] : colorParam) ||
     product.colors?.[0] ||
@@ -99,6 +103,4 @@ const ProductPage = async ({ params, searchParams = {} }: ProductPageProps) => {
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}
