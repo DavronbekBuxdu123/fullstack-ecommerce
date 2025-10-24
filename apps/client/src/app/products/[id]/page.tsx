@@ -2,12 +2,13 @@ import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
-interface ProductPageProps {
-  params: { id: string };
-  searchParams: Record<string, string | string[] | undefined>;
-}
-
-const fetchdata = async (id: string): Promise<ProductType> => {
+// interface ProductPageProps {
+//   params: { id: string };
+//   searchParams: Record<string, string | string[] | undefined>;
+// }
+type Params = { id: string };
+type SearchParams = { [key: string]: string | string[] | undefined };
+const fetchdata = async (id: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`
   );
@@ -20,21 +21,15 @@ const fetchdata = async (id: string): Promise<ProductType> => {
   return data;
 };
 
-export const generateMetadata = async ({
+const ProductPage = async ({
   params,
+  searchParams,
 }: {
-  params: { id: string };
+  params: Params;
+  searchParams: SearchParams;
 }) => {
-  const product = await fetchdata(params.id);
-  return {
-    title: product.name,
-    description: product.description,
-  };
-};
-
-const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
-  const { id } = await params;
-  const { color, size } = await searchParams;
+  const { id } = params;
+  const { color, size } = searchParams;
 
   const product = await fetchdata(id);
 
