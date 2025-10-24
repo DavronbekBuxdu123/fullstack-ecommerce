@@ -2,12 +2,10 @@ import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
-interface ProductPageProps {
-  params: { id: string };
-  searchParams: Record<string, string | string[] | undefined>;
-}
-type Params = { id: string };
-type SearchParams = { [key: string]: string | string[] | undefined };
+
+type Params = Promise<{ id: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 const fetchdata = async (id: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`
@@ -21,20 +19,18 @@ const fetchdata = async (id: string) => {
   return data;
 };
 
-const ProductPage = async ({
-  params,
-  searchParams,
-}: {
+export async function ProductPage(props: {
   params: Params;
   searchParams: SearchParams;
-}) => {
-  const { id } = params;
-  const { color, size } = searchParams;
-
+}) {
+  const { id } = await props.params;
+  const { color, size } = await props.searchParams;
   const product = await fetchdata(id);
 
-  const selectedSize = size || product.sizes?.[0] || "Default Size";
-  const selectedColor = color || product.colors?.[0] || "Default Color";
+  const selectedSize =
+    typeof size === "string" ? size : product.sizes?.[0] || "Default Size";
+  const selectedColor =
+    typeof color === "string" ? color : product.colors?.[0] || "Default Color";
 
   return (
     <div className="w-full flex flex-col lg:flex-row mt-12 gap-12">
@@ -94,6 +90,4 @@ const ProductPage = async ({
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}
