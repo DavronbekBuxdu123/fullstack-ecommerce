@@ -3,8 +3,13 @@ import { ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-type Params = Promise<{ id: string }>;
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+// type Params = Promise<{ id: string }>;
+// type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+interface ProductDetailsPageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ color: string; size: string }>;
+}
 
 const fetchdata = async (id: string) => {
   const res = await fetch(
@@ -19,12 +24,12 @@ const fetchdata = async (id: string) => {
   return data;
 };
 
-export default async function ProductPage(props: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
-  const { id } = await props.params;
-  const { color, size } = await props.searchParams;
+const ProductDetailsPage = async ({
+  params,
+  searchParams,
+}: ProductDetailsPageProps) => {
+  const { id } = await params;
+  const { color, size } = await searchParams;
   const product = await fetchdata(id);
 
   const selectedSize =
@@ -90,4 +95,6 @@ export default async function ProductPage(props: {
       </div>
     </div>
   );
-}
+};
+
+export default ProductDetailsPage;
