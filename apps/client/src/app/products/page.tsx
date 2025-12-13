@@ -3,10 +3,14 @@ import Filter from "@/components/Filter";
 import ProductList from "@/components/ProductList";
 
 interface ProductsPageProps {
-  searchParams: Record<string, string | undefined>;
+  searchParams: {
+    category?: string;
+    sort?: string;
+    search?: string;
+  };
 }
 
-const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+const ProductsPage = ({ searchParams }: ProductsPageProps) => {
   const category = searchParams.category || "all";
   const sort = searchParams.sort;
   const search = searchParams.search;
